@@ -200,7 +200,7 @@ export const dataProvider: DataProvider = {
     const data = await response.json();
     return {
       data: data.data,
-      total: data.total,
+      total: data.total, 
       pageSize: data.items_per_page,
       currentPage: data.page,
     };

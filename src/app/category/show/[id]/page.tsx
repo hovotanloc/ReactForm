@@ -37,9 +37,7 @@ export default function CategoryShow() {
         </Typography>
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            variant="outlined"
-            onClick={() => router.push("/category")}>
+          <Button variant="outlined" onClick={() => router.push("/category")}>
             Trở về danh sách
           </Button>
         </Box>

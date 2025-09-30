@@ -5,67 +5,67 @@ import Cookies from "js-cookie";
 
 
 export const authProviderClient : AuthProvider = {
-  // login: async ({ phone, password }: { phone: string; password: string }) => {
-  //   try {
-  //     const response = await fetch("http://192.168.1.12:3000/auth/login", 
-  //       {
-  //         method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ phone, password }),
-  //     });
+  login: async ({ phone, password }: { phone: string; password: string }) => {
+    try {
+      const response = await fetch("https://prisma-demo-vow3.onrender.com/auth/login", 
+        {
+          method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone, password }),
+      });
 
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       Cookies.set("token", data.token,{ expires: 0.0200 });
-  //       Cookies.set("user", JSON.stringify(data.user), { expires: 0.0200 });
+      if (response.ok) {
+        const data = await response.json();
+        Cookies.set("token", data.token,{ expires: 0.0200 });
+        Cookies.set("user", JSON.stringify(data.user), { expires: 0.0200 });
 
-  //       return {
-  //         success: true,
-  //         redirectTo: "/dashboard",
-  //       };
-  //     }
+        return {
+          success: true,
+          redirectTo: "/dashboard",
+        };
+      }
 
-  //     return {
-  //       success: false,
-  //       error: {
-  //         message: "Đăng nhập thất bại",
-  //         name: "Sai số điện thoại hoặc mật khẩu",
-  //       },
-  //     };
-  //   } catch (error: any) {
-  //     return {
-  //       success: false,
-  //       error: {
-  //         message: error.message,
-  //         name: "Lỗi hệ thống",
-  //       },
-  //     };
-  //   }
-  // },
+      return {
+        success: false,
+        error: {
+          message: "Đăng nhập thất bại",
+          name: "Sai số điện thoại hoặc mật khẩu",
+        },
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.message,
+          name: "Lỗi hệ thống",
+        },
+      };
+    }
+  },
   
-login: async ({ phone, password }) => {
-  if (phone === "0358355555" && password === "Admin@123") {
-    const fakeUser = { id: 1, name: "Admin", phone };
+// login: async ({ phone, password }) => {
+//   if (phone === "0358355555" && password === "Admin@123") {
+//     const fakeUser = { id: 1, name: "Admin", phone };
 
-    Cookies.set("token", "fake-token-123", { expires: 0.0200 }); 
-    Cookies.set("user", JSON.stringify(fakeUser), { expires: 0.0200 });
+//     Cookies.set("token", "fake-token-123", { expires: 0.0200 }); 
+//     Cookies.set("user", JSON.stringify(fakeUser), { expires: 0.0200 });
 
-    return {
-      success: true,
-      redirectTo: "/dashboard",
-    };
-  }
+//     return {
+//       success: true,
+//       redirectTo: "/dashboard",
+//     };
+//   }
 
-  return {
-    success: false,
-    error: {
-      message: "Đăng nhập thất bại",
-      name: "Sai số điện thoại hoặc mật khẩu",
-    },
-  };
-},
+//   return {
+//     success: false,
+//     error: {
+//       message: "Đăng nhập thất bại",
+//       name: "Sai số điện thoại hoặc mật khẩu",
+//     },
+//   };
+// },
 
 
   logout: async () => {

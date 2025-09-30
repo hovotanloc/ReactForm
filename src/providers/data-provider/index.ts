@@ -3,7 +3,7 @@ import { Sort } from "@mui/icons-material";
 import { DataProvider } from "@refinedev/core";
 import Cookies from "js-cookie";
 
-const API_URL = "http://192.168.1.12:3000";
+const API_URL = "https://prisma-demo-vow3.onrender.com";
 
 const getToken = () => {
     return Cookies.get("token");

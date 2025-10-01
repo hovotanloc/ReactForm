@@ -5,26 +5,31 @@ import { TextField, Button, Paper, Box, Typography, MenuItem } from "@mui/materi
 import { useNewsProvider } from "@providers/data-provider/new-index";
 import { useCategoryProvider } from "@providers/data-provider/category-index";
 import { useRouter } from "next/navigation";
+import { useGetIdentity } from "@refinedev/core";
 
 type NewsForm = {
     title: string;
     content?: string;
     categoryId?: number;
     status?: number;
+    ownerId?: number;
 };
 
 export default function NewsCreate() {
     const { createWithValidation } = useNewsProvider();
-    const { register, handleSubmit, setValue } = useForm<NewsForm>({
-        defaultValues: {
-            status: 1,
-        },
+    const { register, handleSubmit } = useForm<NewsForm>({
+        defaultValues: { status: 1 },
     });
     const { list } = useCategoryProvider();
     const router = useRouter();
 
+    const { data: identity } = useGetIdentity<{ id: number; name: string }>();
+
     const onSubmit = async (values: NewsForm) => {
-        await createWithValidation(values);
+        await createWithValidation({
+            ...values,
+            ownerId: identity?.id, 
+        });
         router.push("/news");
     };
 

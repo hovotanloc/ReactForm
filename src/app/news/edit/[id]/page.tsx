@@ -6,12 +6,14 @@ import { useNewsProvider } from "@providers/data-provider/new-index";
 import { useCategoryProvider } from "@providers/data-provider/category-index";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useGetIdentity } from "@refinedev/core";
 
-type NewsForm = {
+type EditForm = {
   title: string;
   content?: string;
   categoryId?: number;
   status?: number;
+  ownerId: number;
 };
 
 export default function NewsEdit() {
@@ -23,7 +25,9 @@ export default function NewsEdit() {
   const { data } = one.query;
   const { list } = useCategoryProvider();
 
-  const { register, handleSubmit, setValue, control } = useForm<NewsForm>();
+  const { register, handleSubmit, setValue, control } = useForm<EditForm>();
+
+  const { data: identity } = useGetIdentity<{ id: number }>();
 
   useEffect(() => {
     if (data?.data) {
@@ -31,14 +35,19 @@ export default function NewsEdit() {
       setValue("content", data.data.content);
       setValue("categoryId", data.data.categoryId);
       setValue("status", data.data.status);
+      setValue("ownerId", data.data.ownerId);
     }
   }, [data, setValue]);
 
 
-  const onSubmit = async (values: NewsForm) => {
-    await updateWithValidation(id, values);
-    router.push("/news");
-  };
+
+  const onSubmit = async (values: EditForm) => {
+  await updateWithValidation(id, {
+    ...values,
+    ownerId: identity?.id, 
+  });
+  router.push("/news");
+};
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>

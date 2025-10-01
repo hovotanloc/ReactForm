@@ -73,7 +73,7 @@ export default async function RootLayout({
                   syncWithLocation: true,
                   warnWhenUnsavedChanges: true,
                   projectId: "bxXx6H-S0fFJB-pmUpoM",
-                  title: { text: "Refine Project", icon: <AppIcon /> },
+                  title: { text: "React Project", icon: <AppIcon /> },
                 }}
               >
                 {children}

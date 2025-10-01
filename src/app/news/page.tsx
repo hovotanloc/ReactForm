@@ -9,6 +9,20 @@ import {
   ShowButton,
 } from "@refinedev/mui";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+type Category = {
+  id: number;
+  name: string;
+};
+
+type News = {
+  id: number;
+  title: string;
+  content: string;
+  categoryId: number;
+  category?: Category;
+  status: number;
+  createdAt: string;
+};
 
 export default function NewsList() {
   const { dataGridProps } = useDataGrid();
@@ -18,7 +32,16 @@ export default function NewsList() {
       { field: "id", headerName: "ID", width: 70 },
       { field: "title", headerName: "Tiêu đề", flex: 1 },
       { field: "content", headerName: "Nội dung", flex: 1 },
-      { field: "categoryId", headerName: "Loại bài viết", width: 120},
+      {
+        field: "categoryId",
+        headerName: "Loại bài viết",
+        flex: 1,
+        valueGetter: (value, row) => {
+          console.log("👉 Full row:", row);
+          return row.category?.name ?? "Không có";
+        },
+      },
+
       {
         field: "status",
         headerName: "Trạng thái",
